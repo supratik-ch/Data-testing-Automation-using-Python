@@ -11,7 +11,7 @@ tbNames=''
 primaryCols=''
 
 data1=[]
-excel_file = getdata.readExcelData("C:\\Users\\sc176\\OneDrive\\Desktop\\Excel Automation\\Project\\resource\\data.xlsx")
+excel_file = getdata.readExcelData("C:\\Users\\sc176\\OneDrive\\Desktop\\Excel Automation\\AutomationTestScript\\resource\\data.xlsx")
 
 def readSrcQuery(excel_file):
     print('Reading Src Query')
@@ -63,8 +63,8 @@ def dbcompare(excel_file):
         print('Connection String --->  ',conn)
         src_data=dbconn.getData(src_query[i],conn)
         tgt_data=dbconn.getData(tgt_query[i],conn)
-        df_left=datacompare.getDifferences(i,src_data,tgt_data,primaryCols,"left only")
-        df_right=datacompare.getDifferences(i,src_data,tgt_data,primaryCols,"right only")
+        df_left=datacompare.getDifferences(i,src_data,tgt_data,primaryCols,"left_only")
+        df_right=datacompare.getDifferences(i,src_data,tgt_data,primaryCols,"right_only")
         df_both=datacompare.getDifferences(i,src_data,tgt_data,primaryCols,"both")
 
         src_df_data=df_both.copy()
@@ -76,12 +76,15 @@ def dbcompare(excel_file):
         
         df_total,df_mismatches,mat_cnt,mis_cnt=datacompare.compare(i,src_df_data,tgt_df_data,primaryCols)
 
-        df_final=pd.DataFrame({'Record Cnt in Src Table':src_data.shape[0],
-                               'Record Cnt in Tgt Table':tgt_data.shape[0],
+        df_final=pd.DataFrame({'Record Count in Src Table':src_data.shape[0],
+                               'Record Count in Tgt Table':tgt_data.shape[0],
                                'Records missing in Src Table':df_right.shape[0],
                                'Records missing in Tgt Table':df_left.shape[0],
-                               'Total Matches':mat_cnt,
-                               'Total Mismatches':mis_cnt},
+                               'Total Records Matched':df_both.shape[0],
+                               'Total Records Mismatched':df_mismatches.shape[0],
+                               'Total Cells Matched':mat_cnt,
+                               'Total Cells Mismatched':mis_cnt
+                               },
                                index=[0])
         
         excel_sheets={'Summary':df_final,'Src table data':src_data,'Tgt table data':tgt_data,'Records missing in Src':df_right,'Records missing in Tgt':df_left,'Matched Rows':df_both,'Mismatch Rows':df_mismatches,'Complete Result Set':df_total}

@@ -1,4 +1,5 @@
 import dbdatacompare
+import exceldatacompare
 
 if __name__=="__main__":
     src_data_format=input("Enter the Source data format(Excel/DB table)\n")
@@ -11,5 +12,9 @@ if __name__=="__main__":
         exit()
 
     if src_data_format.upper()=='DB TABLE' and tgt_data_format.upper()=='DB TABLE':
-        print('Execution Started')
+        print('DB TABLE comparison execution started')
         dbdatacompare.dbcompare(dbdatacompare.excel_file)
+
+    if src_data_format.upper()=='EXCEL' and tgt_data_format.upper()=='EXCEL':
+        print('EXCEL comparison execution started')
+        exceldatacompare.excelcompare(exceldatacompare.excel_file1,exceldatacompare.excel_file2)
