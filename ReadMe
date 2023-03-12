@@ -1,3 +1,6 @@
 Part 1 (23-02-23):
-This Automation script helps in automate regression test between src and tgt tables or steady state validation of weekly and monthly files
+This Automation script helps in automating regression testing between src and tgt database tables for validation of weekly or monthly delta loads.
 The Src and Tgt validation queries have to be inserted in excel and then the main files need to executed.
+
+Part2(12-03-23):
+Within the same code Excel to Excel comparison has also been integrated.
